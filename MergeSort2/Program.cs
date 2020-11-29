@@ -8,44 +8,19 @@ namespace MergeSort2
         {
             Console.WriteLine("Merge Sort");
 
-            int[] randomArray = Populate(101);
+            int[] randomArray = Helper.Populate(10);
+
             Console.WriteLine("Here is a randomly populated array: ");
-            WriteArray(randomArray);
-            Console.WriteLine("\nHere is that array sorted using merge sort:");
-            WriteArray(Sort.MergeSort(randomArray));
 
-            
+            Helper.WriteArray(randomArray);
 
+            Console.WriteLine("\nHere is that array sorted using merge sort between indexes:");
 
+            Helper.WriteArray(Sort.MergeSort(randomArray, 2, 7));
 
-            
+            Console.WriteLine("\nHere is that array sorted using merge sort for the whole array:");
 
-
-            static int[] Populate(int arrayLength)
-            {
-                int[] outputArray = new int[arrayLength];
-
-                for (int i = 0; i < arrayLength; i++)
-                {
-                    outputArray[i] = RandomNumGen(101);
-                }
-                return outputArray;
-            }
-
-            static int RandomNumGen(int max)
-            {
-                Random randNum = new Random();
-                return randNum.Next(max);
-            }
-
-            static void WriteArray(int[] inputArray)
-            {
-                for (int i = 0; i < inputArray.Length; i++)
-                {
-                    Console.Write(inputArray[i] + " ");
-                }
-            }
-
+            Helper.WriteArray(Sort.MergeSort(randomArray));
         }
     }
 }

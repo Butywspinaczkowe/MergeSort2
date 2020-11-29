@@ -6,34 +6,53 @@ namespace MergeSort2
 {
     class Sort
     {
-        public static int[] MergeSort(int[] inputArray) // splitting array in half repeatedly until you are left with an array of 1
+        public static int[] MergeSort(int[] inputArray, int lowValue, int highValue)
         {
-            if (inputArray.Length <= 1)  // base condition, when there is only one element in the array return that element
+            if (inputArray.Length <= 1)
             {
                 return inputArray;
             }
 
-            int[] leftArray = new int[inputArray.Length / 2];  // Initialize arrays to be half the size of the incoming array (this is some c# nonsense)
-            int[] rightArray = new int[inputArray.Length / 2 + (inputArray.Length % 2)];
+            int[] leftArray = new int[(highValue - lowValue) / 2];
+            int[] rightArray = new int[(highValue - lowValue) / 2 + (highValue % 2)];
 
-            for (int i = 0; i < inputArray.Length; i++)
+            for (int i = lowValue; i < highValue; i++)
             {
-                if (i < inputArray.Length / 2) // put the first half of the array into the left array
+                if (inputArray.Length != highValue)
                 {
-                    leftArray[i] = inputArray[i];
+                    if (i < highValue / 2 + (highValue % 2))
+                    {
+                        leftArray[i - lowValue] = inputArray[i];
+                    }
+                    else
+                    {
+                        rightArray[i - ((highValue / 2) + highValue % 2)] = inputArray[i];
+                    }
                 }
-                else // put the second half of the array into the right array
+                else
                 {
-                    rightArray[i - inputArray.Length / 2] = inputArray[i];
+                    if (i < inputArray.Length / 2) // put the first half of the array into the left array
+                    {
+                        leftArray[i] = inputArray[i];
+                    }
+                    else // put the second half of the array into the right array
+                    {
+                        rightArray[i - inputArray.Length / 2] = inputArray[i];
+                    }
                 }
+
             }
 
-            leftArray = MergeSort(leftArray); // function calling itself in recursive loop the left array will get split in two using code above until it is an array of 1 that's returned
+            leftArray = MergeSort(leftArray);
             rightArray = MergeSort(rightArray);
 
-            return Merge(leftArray, rightArray); // once all arrays are one then start merging back together
+            return Merge(leftArray, rightArray);
         }
 
+        public static int[] MergeSort(int[] inputArray)
+        {
+            return MergeSort(inputArray, 0, inputArray.Length);
+        }
         static int[] Merge(int[] leftArray, int[] rightArray)
         {
             int[] sortedList = new int[leftArray.Length + rightArray.Length]; // set up a list that combines both left and right but sorted
@@ -77,45 +96,33 @@ namespace MergeSort2
             array = temp;
             return array;
         }
+    }
+}
 
-        // figure out a way to sort between a high and low index in the array but not the whole array. 
-        // Then later use the same method with 0 for low value and inputArray.Length for high to search whole array. 
-        public static int[] MergeSort(int[] inputArray, int highValue, int lowValue)
+/*        public static int[] MergeSort(int[] inputArray) // splitting array in half repeatedly until you are left with an array of 1
         {
-            //int[] newArray = ArraySlicer(inputArray, highValue, lowValue);
-
-            if (highValue <= 1)
+            if (inputArray.Length <= 1)  // base condition, when there is only one element in the array return that element
             {
                 return inputArray;
             }
 
-            int[] leftArray = new int[highValue / 2];
-            int[] rightArray = new int[highValue / 2 + (highValue % 2)];
+            int[] leftArray = new int[inputArray.Length / 2];  // Initialize arrays to be half the size of the incoming array (this is some c# nonsense)
+            int[] rightArray = new int[inputArray.Length / 2 + (inputArray.Length % 2)];
 
             for (int i = 0; i < inputArray.Length; i++)
             {
-                if (i < inputArray.Length / 2)
+                if (i < inputArray.Length / 2) // put the first half of the array into the left array
                 {
                     leftArray[i] = inputArray[i];
                 }
-                else
+                else // put the second half of the array into the right array
                 {
                     rightArray[i - inputArray.Length / 2] = inputArray[i];
                 }
             }
 
-            leftArray = MergeSort(leftArray);
+            leftArray = MergeSort(leftArray); // function calling itself in recursive loop the left array will get split in two using code above until it is an array of 1 that's returned
             rightArray = MergeSort(rightArray);
 
-            return Merge(leftArray, rightArray);
-        }
-
-        /* static int[] ArraySlicer(int[] inputArray, int highValue, int lowValue)
-         {
-             for (int i = lowValue; i < highValue; i++)
-             {
-                 return 
-             }
-         }*/
-    }
-}
+            return Merge(leftArray, rightArray); // once all arrays are one then start merging back together
+        }*/
