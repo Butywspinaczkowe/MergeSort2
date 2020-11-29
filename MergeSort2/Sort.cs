@@ -14,19 +14,19 @@ namespace MergeSort2
             }
 
             int[] leftArray = new int[(highValue - lowValue) / 2];
-            int[] rightArray = new int[(highValue - lowValue) / 2 + (highValue % 2)];
+            int[] rightArray = new int[(highValue - lowValue) / 2 + ((highValue - lowValue) % 2)];
 
             for (int i = lowValue; i < highValue; i++)
             {
-                if (inputArray.Length != highValue)
+                if (inputArray.Length != highValue || lowValue != 0)
                 {
-                    if (i < highValue / 2 + (highValue % 2))
+                    if (i < ((highValue + lowValue) / 2))
                     {
                         leftArray[i - lowValue] = inputArray[i];
                     }
                     else
                     {
-                        rightArray[i - ((highValue / 2) + highValue % 2)] = inputArray[i];
+                        rightArray[i - ((highValue + lowValue)/2)] = inputArray[i];
                     }
                 }
                 else

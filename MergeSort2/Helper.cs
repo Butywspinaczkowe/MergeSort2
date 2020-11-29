@@ -12,7 +12,7 @@ namespace MergeSort2
 
             for (int i = 0; i < arrayLength; i++)
             {
-                outputArray[i] = RandomNumGen(10);
+                outputArray[i] = RandomNumGen(100);
             }
             return outputArray;
         }
