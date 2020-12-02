@@ -18,8 +18,6 @@ namespace MergeSort2
 
             for (int i = lowValue; i < highValue; i++)
             {
-                if (inputArray.Length != highValue || lowValue != 0)
-                {
                     if (i < ((highValue + lowValue) / 2))
                     {
                         leftArray[i - lowValue] = inputArray[i];
@@ -28,19 +26,6 @@ namespace MergeSort2
                     {
                         rightArray[i - ((highValue + lowValue)/2)] = inputArray[i];
                     }
-                }
-                else
-                {
-                    if (i < inputArray.Length / 2) // put the first half of the array into the left array
-                    {
-                        leftArray[i] = inputArray[i];
-                    }
-                    else // put the second half of the array into the right array
-                    {
-                        rightArray[i - inputArray.Length / 2] = inputArray[i];
-                    }
-                }
-
             }
 
             leftArray = MergeSort(leftArray);
@@ -55,23 +40,23 @@ namespace MergeSort2
         }
         static int[] Merge(int[] leftArray, int[] rightArray)
         {
-            int[] sortedList = new int[leftArray.Length + rightArray.Length]; // set up a list that combines both left and right but sorted
+            int[] sortedList = new int[leftArray.Length + rightArray.Length];
             int i = 0;
-            while (leftArray.Length > 0 && rightArray.Length > 0) // while both left and right arrays still exist
+            while (leftArray.Length > 0 && rightArray.Length > 0) 
             {
-                if (leftArray[0] <= rightArray[0]) // if the first element on the left array is smaller
+                if (leftArray[0] <= rightArray[0]) 
                 {
-                    sortedList[i] = leftArray[0]; //add that element to the sorted list
-                    ResizeArray(ref leftArray); // remove the first element and reduce the size of the array (no pop method in c#)
+                    sortedList[i] = leftArray[0];
+                    ResizeArray(ref leftArray);
                 }
-                else // same but on the right if that's smaller
+                else 
                 {
                     sortedList[i] = rightArray[0]; 
                     ResizeArray(ref rightArray);
                 }
                 i++;
             }
-            while (leftArray.Length > 0)    // once left and right have been compared and there's only one array left just add them on the end
+            while (leftArray.Length > 0)  
             {
                 sortedList[i] = leftArray[0];
                 ResizeArray(ref leftArray);
@@ -83,7 +68,7 @@ namespace MergeSort2
                 ResizeArray(ref rightArray);
                 i++;
             }
-            return sortedList;   // returns final sorted list
+            return sortedList;  
         }
 
         static int[] ResizeArray(ref int[] array)
@@ -98,31 +83,3 @@ namespace MergeSort2
         }
     }
 }
-
-/*        public static int[] MergeSort(int[] inputArray) // splitting array in half repeatedly until you are left with an array of 1
-        {
-            if (inputArray.Length <= 1)  // base condition, when there is only one element in the array return that element
-            {
-                return inputArray;
-            }
-
-            int[] leftArray = new int[inputArray.Length / 2];  // Initialize arrays to be half the size of the incoming array (this is some c# nonsense)
-            int[] rightArray = new int[inputArray.Length / 2 + (inputArray.Length % 2)];
-
-            for (int i = 0; i < inputArray.Length; i++)
-            {
-                if (i < inputArray.Length / 2) // put the first half of the array into the left array
-                {
-                    leftArray[i] = inputArray[i];
-                }
-                else // put the second half of the array into the right array
-                {
-                    rightArray[i - inputArray.Length / 2] = inputArray[i];
-                }
-            }
-
-            leftArray = MergeSort(leftArray); // function calling itself in recursive loop the left array will get split in two using code above until it is an array of 1 that's returned
-            rightArray = MergeSort(rightArray);
-
-            return Merge(leftArray, rightArray); // once all arrays are one then start merging back together
-        }*/
